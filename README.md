@@ -1,4 +1,4 @@
-# Kilimani Urban Data Dashboard
+# Kilimani Urban
 
 ## Problem Statement:
 
