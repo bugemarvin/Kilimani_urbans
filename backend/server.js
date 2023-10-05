@@ -5,6 +5,9 @@ const { config } = require('dotenv');
 const { configureRedis } = require('./config/redis');
 const passport = require('passport');
 const { passport: configurePassport } = require('./config/passport');
+const authMiddleware = require('./middleware/authMiddleware');
+const { errorHandler } = require('./middleware/errorMiddleware');
+const LoggingMiddleware = require('./middleware/loggingMiddleware');
 
 // Load environment variables from .env file
 config();
@@ -36,6 +39,23 @@ app.use(passport.session());
 
 // Configure Passport
 configurePassport(passport);
+
+// Initialize auth middleware
+app.use(authMiddleware.isAuthenticated());
+
+// Initialize error middleware
+app.use(errorHandler);
+
+// Initialize logging middleware
+app.use(LoggingMiddleware.logRequests());
+
+// Parse JSON bodies
+app.use(express.json());
+
+// Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
