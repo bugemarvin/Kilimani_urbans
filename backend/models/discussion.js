@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const { mongoose } = require('./config/db');
 
-const discussionSchema = new mongose.Schema({
+const discussionSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
@@ -15,6 +15,6 @@ const discussionSchema = new mongose.Schema({
   }
 });
 
-const disscustion = mongose.model('Discussion', discussionSchema);
+const disscustion = mongoose.model('Discussion', discussionSchema);
 
 module.exports = disscustion;

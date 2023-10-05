@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const { mongoose } = require('./config/db');
 
-const newsSchema = new mongose.Schema({
+const newsSchema = new mongoose.Schema({
   news: {
     type: Object,
     required: true
@@ -11,6 +11,6 @@ const newsSchema = new mongose.Schema({
   }
 });
 
-const news = mongose.model('News', newsSchema);
+const news = mongoose.model('News', newsSchema);
 
 module.exports = news;

@@ -42,4 +42,4 @@ module.exports.passport = (passport) => {
       done(error);
     }
   });
-}
+};

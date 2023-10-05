@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const { mongoose } = require('./config/db');
 
-const geoLocationSchema = new mongose.Schema({
+const geoLocationSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
@@ -15,6 +15,6 @@ const geoLocationSchema = new mongose.Schema({
   }
 });
 
-const geo = mongose.model('GeoLocation', geoLocationSchema);
+const geo = mongoose.model('GeoLocation', geoLocationSchema);
 
 module.exports = geo;

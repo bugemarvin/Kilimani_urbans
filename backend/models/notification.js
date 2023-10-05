@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const { mongoose } = require('./config/db');
 
-const notificationSchema = new mongose.Schema({
+const notificationSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
@@ -15,6 +15,6 @@ const notificationSchema = new mongose.Schema({
   }
 });
 
-const notifications = mongose.model('Notification', notificationSchema);
+const notifications = mongoose.model('Notification', notificationSchema);
 
 module.exports = notifications;

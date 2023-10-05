@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const { mongoose } = require('./config/db');
 
-const reportSchema = new mongose.Schema({
+const reportSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
