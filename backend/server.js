@@ -1,19 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const passport = require('passport');
+const { connectDB } = require('./config/db');
 const cors = require('cors');
 const { config } = require('dotenv');
+const { configureRedis } = require('./config/redis');
+const passport = require('passport');
+const { passport: configurePassport } = require('./config/passport');
 
 // Load environment variables from .env file
 config();
 
 const app = express();
+
 const PORT = process.env.PORT || 3001;
 const host = process.env.HOST || 'localhost';
-const DB_PORT = process.env.DB_PORT || 27017;
-const DB_HOST = process.env.DB_HOST || '127.0.0.1';
-const DATABASE = 'kilimani-urban-data';
-// const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
 // Enable CORS
 const corsOptions = {
@@ -22,16 +21,21 @@ const corsOptions = {
     : '*',
   credentials: true
 };
+
 app.use(cors(corsOptions));
 
 // Connect to MongoDB
-mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DATABASE}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+connectDB();
 
-// Initialize Passport.js
-require('./config/passport')(passport);
+// Configure Redis for session storage
+configureRedis(app);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure Passport
+configurePassport(passport);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
