@@ -17,4 +17,4 @@ const discussionSchema = new mongose.Schema({
 
 const disscustion = mongose.model('Discussion', discussionSchema);
 
-exports.module = disscustion;
+module.exports = disscustion;

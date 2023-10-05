@@ -21,4 +21,4 @@ const analyticsDataSchema = new mongoose.Schema({
 
 const analyticsData = mongoose.model('AnalyticsData', analyticsDataSchema);
 
-exports.module = analyticsData;
+module.exports = analyticsData;
