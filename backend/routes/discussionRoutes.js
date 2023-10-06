@@ -1,17 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const { Discussion } = require('../controllers/discussionController');
-const { isAuthenitcated } = require('../middleware/authMiddleware');
+const { discussions } = require('../controllers/discussionController');
+const { isAuthenticated } = require('../middleware/authMiddleware');
+
+/**
+ * @method POST
+ * @route /api_v1/discussion/create
+ * @description Create a new discussion topic
+ * @access private (Requires user to be logged in)
+ */
+router.post('/create', isAuthenticated, discussions.createDiscussion);
 
 /**
  * @method GET
- * @route /api_v1/discussion
- * @description Get discussion topics
- * @access Public
+ * @route /api_v1/discussion/status
+ * @description Get all discussion topics
+ * @access public
  */
+router.get('/status', discussions.getAllDiscussions);
 
-router.post('/create', isAuthenitcated, Discussion.createDiscussion);
-router.get('/status', Discussion.getAllDiscussions);
-router.get('/status/:id', Discussion.getDiscussionById);
+/**
+ * @method GET
+ * @route /api_v1/discussion/status/:id
+ * @description Get a discussion topic by id
+ * @access public
+ */
+router.get('/status/:id', discussions.getDiscussionById);
 
 module.exports = router;
