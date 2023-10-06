@@ -12,7 +12,7 @@ const { isAuthenticated } = require('../middleware/authMiddleware');
 
 router.post('/', isAuthenticated, geoLocation.createGeoLocation);
 router.get('/status', geoLocation.getAllGeoLocations);
-router.get('/status/:id', geoLocation.getGeoLocationById);
+router.get('/status/:id', isAuthenticated, geoLocation.getGeoLocationById);
 router.put('/status/:id', isAuthenticated, geoLocation.updateGeoLocation);
 router.delete('/status/:id', isAuthenticated, geoLocation.deleteGeoLocation);
 
