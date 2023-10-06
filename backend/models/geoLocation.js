@@ -1,4 +1,4 @@
-const { mongoose } = require('./config/db');
+const mongoose = require('mongoose');
 
 const geoLocationSchema = new mongoose.Schema({
   userId: {
@@ -6,15 +6,24 @@ const geoLocationSchema = new mongoose.Schema({
     required: true
   },
   geoLocation: {
-    type: Object,
-    required: true
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
   },
   date: {
     type: Date,
+    default: Date.now,
     required: true
   }
 });
 
-const geo = mongoose.model('GeoLocation', geoLocationSchema);
+geoLocationSchema.index({ geoLocation: '2dsphere' });
 
-module.exports = geo;
+const GeoLocation = mongoose.model('GeoLocation', geoLocationSchema);
+
+module.exports = GeoLocation;

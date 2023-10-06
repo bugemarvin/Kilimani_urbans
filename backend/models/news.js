@@ -1,4 +1,4 @@
-const { mongoose } = require('./config/db');
+const { mongoose } = require('mongoose');
 
 const newsSchema = new mongoose.Schema({
   news: {

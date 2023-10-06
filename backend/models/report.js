@@ -1,4 +1,4 @@
-const { mongoose } = require('./config/db');
+const { mongoose } = require('mongoose');
 
 const reportSchema = new mongoose.Schema({
   userId: {
@@ -15,6 +15,6 @@ const reportSchema = new mongoose.Schema({
   }
 });
 
-const reports = mongose.model('Report', reportSchema);
+const reports = mongoose.model('Report', reportSchema);
 
 exports.module = reports;

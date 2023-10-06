@@ -31,3 +31,17 @@ exports.errorHandler = (err, req, res, next) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+exports.handle404Error = (req, res, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+};
+
+exports.handle404ErrorMiddleware = (error, req, res, next) => {
+  if (error.status === 404) {
+    res.status(404).json({ message: 'Page not found' });
+  } else {
+    next(error);
+  }
+};
